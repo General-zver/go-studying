@@ -32,7 +32,15 @@ func main() {
 		command := strings.TrimSpace(scanner.Text())
 		switch command {
 		case "new":
-			scanDataFromConsole("Введите название задачи: ", &title)
+			for {
+				scanDataFromConsole("Введите название задачи: ", &title)
+				if len(title) == 0 {
+					fmt.Println("Название не может быть пустым")
+					scanDataFromConsole("Введите название задачи: ", &title)
+				} else {
+					break
+				}
+			}
 			scanDataFromConsole("Введите описание задачи: ", &description)
 
 			//fmt.Println(task.Title)

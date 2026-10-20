@@ -21,15 +21,8 @@ func openFileOrCreate(fileName string) *os.File {
 }
 
 func readDataFromFile(file *os.File) []byte {
-	// file_data := make([]byte, 64)
-	// var result []byte
-	// for {
-	// data, err := file.Read(file_data)
+
 	data, _ := io.ReadAll(file)
-	// if err == io.EOF {
-	// 	//break
-	// }
-	// result = append(result, file_data[:data]...)
-	// }
+
 	return data
 }
