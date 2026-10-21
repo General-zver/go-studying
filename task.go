@@ -31,9 +31,21 @@ func createTask(id int, title string, description string) task {
 
 // }
 
-func changeTask(t task, title string, description string) task {
-	t.Title = strings.TrimSpace(title)
-	t.Description = strings.TrimSpace(description)
+func changeTask(t_id string, all_tasks []task, title string, description string) task {
+	// t := getTaskById(t_id, all_tasks)
+	var t task
+	t_iid, err := strconv.Atoi(strings.TrimSpace(t_id))
+	if err != nil {
+		fmt.Println("ID должен быть числом")
+	}
+	for index, v := range all_tasks {
+		if v.Id == t_iid {
+			v.Title = strings.TrimSpace(title)
+			v.Description = strings.TrimSpace(description)
+			all_tasks[index] = v
+			t = all_tasks[index]
+		}
+	}
 	return t
 }
 
@@ -80,4 +92,31 @@ func getTaskById(id string, tasks []task) task {
 		}
 	}
 	return v_task
+}
+
+func getTaskIndexById(id string, tasks []task) int {
+	var index int
+	iid, err := strconv.Atoi(strings.TrimSpace(id))
+	if err != nil {
+		panic(err)
+	}
+	for i, v := range tasks {
+		if v.Id == iid {
+			index = i
+		}
+	}
+	return index
+
+}
+
+func searchTaskByWord(word string, tasks []task) []task {
+	var resul_tasks_arr []task
+	for _, v := range tasks {
+		if strings.Contains(strings.TrimSpace(v.Title), strings.TrimSpace(word)) {
+			resul_tasks_arr = append(resul_tasks_arr, v)
+		} else if strings.Contains(strings.TrimSpace(v.Description), strings.TrimSpace(word)) {
+			resul_tasks_arr = append(resul_tasks_arr, v)
+		}
+	}
+	return resul_tasks_arr
 }
